@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Developer & Visual Designer | Portfolio</title>
+  <style>
+    /* Reset & Base Styles */
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      line-height: 1.6;
+      color: #2d3748;
+      background-color: #f7fafc;
+      padding: 0 1.5rem;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Hero Section */
+    header {
+      padding: 4rem 0 2rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 2.5rem;
+      color: #1a202c;
+      margin-bottom: 0.5rem;
+    }
+    header p {
+      font-size: 1.25rem;
+      color: #4a5568;
+    }
+
+    /* Card Layouts */
+    section {
+      background: #ffffff;
+      padding: 2rem;
+      border-radius: 12px;
+      margin-bottom: 2rem;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    }
+    h2 {
+      font-size: 1.5rem;
+      color: #2b6cb0;
+      margin-bottom: 1rem;
+      border-bottom: 2px solid #ebf8ff;
+      padding-bottom: 0.5rem;
+    }
+
+    /* Skills Interactive Area */
+    .skills-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .btn-reroll {
+      background-color: #3182ce;
+      color: white;
+      border: none;
+      padding: 0.6rem 1.2rem;
+      border-radius: 6px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease, transform 0.1s ease;
+    }
+    .btn-reroll:hover {
+      background-color: #2b6cb0;
+    }
+    .btn-reroll:active {
+      transform: scale(0.98);
+    }
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      min-height: 100px;
+    }
+    .skill-badge {
+      background-color: #ebf8ff;
+      color: #2b6cb0;
+      padding: 0.5rem 1rem;
+      border-radius: 9999px;
+      font-weight: 500;
+      font-size: 0.95rem;
+      border: 1px solid #bee3f8;
+      animation: fadeIn 0.3s ease-in-out;
+    }
+
+    /* Projects Grid */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+    .project-card {
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 1.25rem;
+      background-color: #faf5ff;
+    }
+    .project-card h3 {
+      color: #5a67d8;
+      margin-bottom: 0.5rem;
+    }
+
+    /* Keyframes */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Header / Hero -->
+    <header>
+      <h1>Alex Morgan</h1>
+      <p>Full-Stack Developer & Dynamic Specialist</p>
+    </header>
+
+    <!-- About Section -->
+    <section>
+      <h2>About Me</h2>
+      <p>I build intuitive web applications and explore unique digital solutions. I pride myself on adaptability, continuous learning, and exploring new skills on the fly.</p>
+    </section>
+
+    <!-- Interactive Random Skills Section -->
+    <section>
+      <div class="skills-header">
+        <h2>Featured Skills</h2>
+        <button class="btn-reroll" onclick="generateRandomSkills()">🔀 Shuffle Skills</button>
+      </div>
+      <p style="margin-bottom: 1rem; color: #718096; font-size: 0.9rem;">
+        Click the button above to load a randomized combination of my tech stack and tools.
+      </p>
+      <div class="skills-grid" id="skillsContainer">
+        <!-- JS inserts skill badges here -->
+      </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section>
+      <h2>Projects</h2>
+      <div class="project-grid">
+        <div class="project-card">
+          <h3>Interactive Dashboard</h3>
+          <p>Real-time analytics portal built with clean component UI and interactive charts.</p>
+        </div>
+        <div class="project-card">
+          <h3>Automated Workflow Bot</h3>
+          <p>A smart script automated task routine system designed for efficiency.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section>
+      <h2>Get In Touch</h2>
+      <p>Email: alex.morgan@example.com</p>
+      <p>GitHub: github.com/example</p>
+    </section>
+  </div>
+
+  <script>
+    // Pool of skills to select from
+    const skillPool = [
+      "JavaScript (ES6+)", "TypeScript", "React", "Node.js", "Python",
+      "CSS Grid & Flexbox", "Tailwind CSS", "REST APIs", "GraphQL", 
+      "Docker", "Git / GitHub", "PostgreSQL", "MongoDB", "Figma", 
+      "UI/UX Design", "Web Accessibility (a11y)", "Performance Optimization",
+      "Jest & Testing", "CI/CD Pipelines", "WebAssembly"
+    ];
+
+    function generateRandomSkills() {
+      const container = document.getElementById("skillsContainer");
+      container.innerHTML = ""; // Clear existing skills
+
+      // Shuffle and pick 6 to 8 random items from the pool
+      const shuffled = [...skillPool].sort(() => 0.5 - Math.random());
+      const selectedCount = Math.floor(Math.random() * 3) + 6; // 6, 7, or 8 items
+      const selectedSkills = shuffled.slice(0, selectedCount);
+
+      selectedSkills.forEach(skill => {
+        const badge = document.createElement("span");
+        badge.className = "skill-badge";
+        badge.textContent = skill;
+        container.appendChild(badge);
+      });
+    }
+
+    // Load initial set of random skills when page opens
+    window.addEventListener("DOMContentLoaded", generateRandomSkills);
+  </script>
+
+</body>
+</html>
